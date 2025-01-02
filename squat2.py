@@ -44,7 +44,7 @@ mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
 
 if run_app:
-    cap = cv2.VideoCapture(1)  # Access webcam
+    cap = cv2.VideoCapture(2)  # Access webcam
 
     if not cap.isOpened():
         st.error("Error: Could not open webcam.")
