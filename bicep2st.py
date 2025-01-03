@@ -1,4 +1,4 @@
-import cv2 as opencv
+import cv2 
 import numpy as np
 import time
 import PoseModule as pm
@@ -31,7 +31,7 @@ pTime = 0
 # Run the pose detection only when enabled in the sidebar
 if run_app:
     # Initialize the video capture for webcam
-    cap = opencv.VideoCapture(0)
+    cap = cv2.VideoCapture(0)
 
     if not cap.isOpened():
         st.error("Error: Failed to open webcam.")
@@ -43,7 +43,7 @@ if run_app:
             st.error("Error: Failed to read webcam frame.")
             break
 
-        img = opencv.resize(img, (1280, 720))  # Resize image to a standard size
+        img = cv2.resize(img, (1280, 720))  # Resize image to a standard size
         img = detector.findPose(img, False)  # Find pose landmarks
         lmList = detector.findPosition(img, False)  # Get the list of landmarks
 
@@ -69,13 +69,13 @@ if run_app:
                     dir = 0
 
             # Draw progress bar
-            opencv.rectangle(img, (1100, 100), (1175, 650), color, 3)
-            opencv.rectangle(img, (1100, int(bar)), (1175, 650), color, cv2.FILLED)
-            opencv.putText(img, f'{int(per)} %', (1100, 75), cv2.FONT_HERSHEY_PLAIN, 4, color, 4)
+            cv2.rectangle(img, (1100, 100), (1175, 650), color, 3)
+            cv2.rectangle(img, (1100, int(bar)), (1175, 650), color, cv2.FILLED)
+            cv2.putText(img, f'{int(per)} %', (1100, 75), cv2.FONT_HERSHEY_PLAIN, 4, color, 4)
 
             # Draw curl count on the screen
-            opencv.rectangle(img, (0, 450), (250, 720), (0, 255, 0), cv2.FILLED)
-            opencv.putText(img, str(int(count)), (45, 670), cv2.FONT_HERSHEY_PLAIN, 15, (255, 0, 0), 25)
+            cv2.rectangle(img, (0, 450), (250, 720), (0, 255, 0), cv2.FILLED)
+            cv2.putText(img, str(int(count)), (45, 670), cv2.FONT_HERSHEY_PLAIN, 15, (255, 0, 0), 25)
 
         # Calculate the FPS of the webcam feed
         cTime = time.time()
@@ -87,7 +87,7 @@ if run_app:
         count_placeholder.markdown(f"**Curl Count**: {int(count)}")
 
         # Convert BGR image to RGB for Streamlit
-        imgRGB = opencv.cvtColor(img, opencv.COLOR_BGR2RGB)
+        imgRGB = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         frame_placeholder.image(imgRGB, channels="RGB", use_column_width=True)
 
     # Release the video capture object
